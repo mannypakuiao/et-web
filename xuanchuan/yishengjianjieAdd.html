@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="医院管理平台" />
+    <meta name="keywords" content="医院管理平台" />
+    <title>医生简介</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <script src="../dist/layui.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+    <script src="js/yishengjianjieAdd.js"></script>
+    <style>
+        .layui-input-block{
+            margin-left: 100px;
+        }
+        .layui-form-label{
+            width: 80px;
+        }
+    </style>
+</head>
+
+<body>
+<form class="layui-form" action="">
+<div style="padding: 15px;">
+    <div class="layui-input-inline" style="display: none">
+        <label class="layui-form-label">ID：</label>
+        <div class="layui-input-block" style="width: 400px;">
+            <input type="text" name="id" id="id" lay-verify=""   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">医生姓名：</label>
+        <div class="layui-input-block" style="width: 400px;">
+            <input type="text" name="docName" id="docName" lay-verify=""   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">医生职称：</label>
+        <div class="layui-input-block" style="width: 400px;">
+            <input type="text" name="docTitle" id="docTitle" lay-verify="" required placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">所属科室：</label>
+        <div  class="layui-input-block" style="width: 400px;">
+            <select id="detpNo" name="detpNo" lay-verify="" lay-filter="detpNo"  class="layui-input">
+
+            </select>
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">医生电话：</label>
+        <div class="layui-input-block" style="width: 400px;">
+            <input type="text" name="docTel" id="docTel" lay-verify="" required placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">登陆密码：</label>
+        <div class="layui-input-block" style="width: 400px;">
+            <input type="text" name="loginPwd" id="loginPwd" lay-verify="" required placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">图文问诊价格：</label>
+        <div class="layui-input-block" style="width: 400px;">
+            <input type="text" name="imagePrice" id="imagePrice" lay-verify="" required placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">视频问诊价格：</label>
+        <div class="layui-input-block" style="width: 400px;">
+            <input type="text" name="videoPrice" id="videoPrice" lay-verify="" required placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">头像</label>
+        <div class="layui-input-block" >
+            <button type="button" class="layui-btn" id="upload">
+                <i  class="layui-icon">&#xe67c;</i><span id="imgbtn">上传头像</span>
+            </button>
+            <div class="help-block" style="color: #FF5722">建议宽高尺寸 ：180 X 150 像素</div>
+            <!--<span class="help-block" style="color: #FF5722">建议宽高尺寸 ：150 X 200 像素 </span>-->
+            <img id="img" src="" class='lazy' style='display:none;width:150px; height:180px;padding-top:10px'>
+        </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">健康课堂中显示：</label>
+        <div  class="layui-input-block" style="width: 400px;">
+            <select id="isShowHealth" name="isShowHealth" lay-verify="" lay-filter="deptId"  class="layui-input">
+                <option value="0">否</option>
+                <option value="1">是</option>
+            </select>
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">医生简介：</label>
+        <div class="layui-input-block" style="width: 400px;">
+            <textarea style="height: 120px" name="docIntro" id="docIntro" class="layui-input"></textarea>
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div style="width: 100%;display: flex;justify-content: center" >
+    <button style="margin: 20px 140px;width: 80px;" id="save">保存</button>
+    </div>
+</div>
+</form>
+</body>
+</html>

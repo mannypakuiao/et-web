@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="智慧酒店管理平台" />
+    <meta name="keywords" content="智慧酒店管理平台" />
+    <title>添加banner</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <script src="../dist/layui.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+    <script src="../js/jquery.form.min.js"></script>
+    <script src="js/healthvideoAdd.js"></script>
+</head>
+
+<body>
+<div style="padding: 15px;">
+    <form method="post"  id="regform" enctype="multipart/form-data">
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label"  style="width: 70px;">专题：</label>
+            <div  class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <select id="healthId" name="healthId" lay-verify="" lay-filter="healthId"  class="layui-input" required>
+                </select>
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline" >
+            <label class="layui-form-label"  style="width: 70px;">所属医生：</label>
+            <div  class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <select id="docId"  lay-verify="" lay-filter="docId"   class="layui-input" required lay-search >
+                </select>
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">标题：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <input type="text" name="title" id="title" lay-verify="" required  autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline" >
+            <label class="layui-form-label"  style="width: 70px;">隐私权限：</label>
+            <div  class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <select id="isUp" name="isUp"  lay-verify="" lay-filter="docId88"  class="layui-input" required>
+                    <option value="0">公开</option>
+                    <option value="1">隐私</option>
+                </select>
+            </div>
+        </div>
+        <!--<div style="height: 10px;"></div>-->
+        <!--<div class="layui-input-inline">-->
+            <!--<label class="layui-form-label" style="width: 70px;">链接：</label>-->
+            <!--<div class="layui-input-block" style="width: 350px;margin-left: 85px;">-->
+                <!--<input type="text" name="link" id="link" lay-verify="" required  autocomplete="off" class="layui-input">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div style="height: 10px;"></div>-->
+        <!--<div class="layui-input-inline">-->
+            <!--<label class="layui-form-label" style="width: 70px;">封面图：</label>-->
+            <!--<div class="layui-input-block" style="width: 350px;margin-left: 85px;">-->
+                <!--<input type="file" name="videoImg" id="videoImg" >-->
+                <!--<br>-->
+                <!--<span class="help-block">建议150X100像素</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;"></label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;" id="img">
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">视频：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <input type="file" name="videoFile" id="videoFile" required>
+                <br>
+                <span class="help-block">视频文件(mp4格式)</span>
+            </div>
+        </div>
+        <!--<div style="height: 10px;"></div>-->
+        <!--<div class="layui-input-inline" id="videolink" style="display: none">-->
+            <!--<label class="layui-form-label" style="width: 70px;">视频连接：</label>-->
+            <!--<div class="layui-input-block" style="width: 350px;margin-left: 85px;">-->
+                <!--<input type="text" name="link" id="link" lay-verify="" readonly   autocomplete="off" class="layui-input">-->
+            <!--</div>-->
+        <!--</div>-->
+        <input type="hidden" id="id" name="id">
+        <input type="hidden" id="doc" name="docId">
+        <input type="hidden" id="dept" name="deptId">
+        <input type="submit" style="margin: 40px 195px;width: 80px;" value="保存" id="save">
+    </form>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>视频问诊</title>
+		<script src="../../js/common.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/jquery-2.2.3.js"></script>
+		<script src="../../dist/layui.all.js"></script>
+		<script src="../../js/util.js"></script>
+		<!-- <script src="../../model/globalParams.js"></script> -->
+		<link rel="stylesheet" type="text/css" href="../../dist/css/layui.css" />
+	</head>
+	<body>
+		<div class="layui-form" id="container">
+			<div class="layui-form-item" style="margin-top: 15px;">
+			    
+				<div class="layui-inline">
+				    <label class="layui-form-label">会诊状态</label>
+				    <div class="layui-input-inline">
+						<select name="hzType" id="hz_type" lay-verify="">
+						  <option value="1">未完成</option>
+						  <option value="2">已完成</option>
+						  <option value="0">所有</option>
+						</select> 
+				    </div>
+				</div>
+				
+				<div class="layui-inline">
+					<label class="layui-form-label">姓名</label>
+					<div class="layui-input-inline">
+						<input type="text" id="userName"  autocomplete="off" class="layui-input">
+					</div>
+			    </div>
+			    
+				<button id="search" class="layui-btn"  lay-filter="tableTop" @click="search">查找</button>
+			</div>
+			
+			<table class="layui-table">
+			    <colgroup>
+					<col width="8%">
+					<col width="8%">
+					<col width="10%">
+					<col width="15%">
+					<col width="30%">
+					<col>
+			    </colgroup>
+			    <thead>
+					<tr style="text-align: center;">
+						<th >患者姓名</th>
+						<th >就诊号</th>
+						<th >会诊状态</th>
+						<th >预约时间</th>
+						<th >病情描述</th>
+						<th >操作</th>
+					</tr> 
+			    </thead>
+			    <tbody v-if = "records.length == 0">
+			    	<tr >
+						<td colspan="6" style="text-align: center;">暂无数据</td>
+					</tr>
+			    </tbody>
+				<tbody v-if = "records.length > 0">
+					<tr  v-for="item in records">
+						<td>{{item.user_name}}</td>
+						<td>{{item.jzh}}</td>
+						<td>{{item.order_state | getState}}</td>
+						<td>
+							{{item.register_date | formatDate}}
+							{{item.register_flag==1?'上午':'下午'}}
+						</td>
+						<td style="text-align: left;">{{item.content}}</td>
+						<td style="text-align: left;">
+							<button type="button" class="layui-btn layui-btn-xs layui-btn-normal"  @click="showDetail(item.order_no,item.user_name)">查看详情</button>
+							<button type="button" class="layui-btn layui-btn-xs layui-btn-normal"  @click="getOrderDetail(item.order_no)">视频会诊</button>
+						</td>
+					</tr>
+				 </tbody>	
+			</table>
+			<div id="divPage"></div>
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		// import gp from '../../model/globalParams.js'
+		// 我们的数据对象
+		var laypage = layui.laypage;
+		var layer = layui.layer;
+		
+		var vm = new Vue({
+			el: '#container',
+			data() {
+				return {
+					records:[],
+					pageNumber:1,
+					pageSize:10,
+				}
+			},
+			mounted: function () {
+			    // console.log(this)
+				this.initPage(this.pageNumber);
+				this.$nextTick(function () {
+				     layui.use(['form'], function(){
+				      var form = layui.form
+				      form.render();
+				     });
+				});
+			},
+			methods:{
+				getPageList:function(totalSize,pageNumber){
+					var that = this;
+				    laypage.render({
+				        elem: 'divPage'
+				        ,curr:pageNumber
+				        ,count:totalSize
+				        ,limit:that.pageSize
+				         ,layout: ['count', 'prev', 'page', 'next',  'skip']
+				        ,jump: function(obj,first){
+				            //首次不执行
+				            if(!first){
+				                that.pageNumber=obj.curr
+				                that.initPage(that.pageNumber);
+				            }
+				        }
+				    });
+				},
+				initPage:function(pageNumber){
+					var that = this;
+					that.records = [];
+					var data={
+						orderType:"4",
+						pageNumber:pageNumber,
+						pageSize:that.pageSize,
+						queryType:$("#hz_type").val(),
+						userName:$("#userName").val(),
+						docNo:sessionStorage.getItem("docNo")
+					}
+					$ajax("/api/online/doc/selectOrdersPages", data,true, function (res) {
+						var val = res.data;
+						that.getPageList(val.data.totalSize,pageNumber);
+						that.records = val.data.list;
+					}, function (res) {
+						layer.msg(res.retMsg, {
+							time: 1000
+						});
+					});
+					// $.post({
+					// 	url: url + "/api/online/doc/selectOrdersPages",
+					// 	data: JSON.stringify(data),
+					// 	dataType: "json",
+					// 	contentType: 'application/json;charset=UTF-8',
+					// 	success: function (res) {
+					// 		layer.close(loading);
+					// 		var val = res.data;
+					// 		that.getPageList(val.data.totalSize,pageNumber);
+					// 		if (res.retCode == 0) {
+					// 			that.records = val.data.list;
+					// 		} else {
+					// 			layer.msg(res.retMsg, {
+					// 				time: 1000
+					// 			});
+					// 		}
+					// 	}
+					// });
+				},
+				showDetail:function(orderNo,userName){
+					var that = this;
+					layui.data('param', {key: 'orderNo',value: orderNo});
+					layer.open({
+					    type:2,
+						shade:0,
+						maxmin:true,
+						moveOut:true,
+					    title: "["+userName+"]",
+					    area: ['500px', '600px'],
+					    content: 'videoDetail.html'
+					    ,zIndex: layer.zIndex //重点1
+					    ,success: function(layero){
+					      layer.setTop(layero); //重点2
+					    },
+						end:function(){
+							that.initPage(that.pageNumber);
+						}
+					});
+				},
+				getOrderDetail:function(orderNo){
+					var that = this;
+					var data={
+						  orderNo: orderNo
+					}
+					var loading = layer.load(2);
+					$.post({
+						url: url + "/online/patient/getOnlineOrder",
+						data: JSON.stringify(data),
+						dataType: "json",
+						contentType: 'application/json;charset=UTF-8',
+						success: function (res) {
+							layer.close(loading);
+							if (res.retCode == 0) {
+								that.sendVideo(res.data);
+							} else {
+								layer.msg(res.retMsg, {
+									time: 1000
+								});
+							}
+						}
+					});
+				},
+				sendVideo(record){
+					var that = this;
+					if(record.isOpenVideo==2){
+						layer.msg("在预约时段内科打开视频", {
+							time: 1000
+						});
+						return false;
+					}
+					var data={
+						  orderNo: record.orderNo
+					}
+					$.post({
+						url: url + "/online/video/getVideoSigatrue",
+						data: JSON.stringify(data),
+						dataType: "json",
+						contentType: 'application/json;charset=UTF-8',
+						success: function (res) {
+							if (res.retCode == 0) {
+								var obj={
+									orderNo:res.data.orderNo,
+									sdkAppID:res.data.sdkAppID,
+									docNo:res.data.docNo,
+									roomId:res.data.roomId,
+									docSig:res.data.docSig
+								}
+								layui.data('param', {key: 'videoOrder',value: obj});
+								
+								var videoIndex = layer.open({
+									type:2,
+									shade:0,
+									maxmin:true,
+									moveOut:true,
+									offset:'auto',
+									title: "["+record.userName+"]-["+record.jzh+"]",
+									area: ['500px', '600px'],
+									content: '../hybrid/html/index.html',
+									zIndex: layer.zIndex, //重点1
+									success: function(layero){
+										layer.setTop(layero); //重点2
+										layui.data('param', {key: 'videoIndex',value: videoIndex});
+									},
+									end:function(){
+										
+									}
+								});
+							} else {
+								layer.msg(res.retMsg, {
+									time: 1000
+								});
+							}
+						}
+					});	
+				},
+				del:function(){
+					
+				},
+				search:function(){
+					this.initPage(1);
+				}
+			},
+			filters: {
+			    formatDate(time) {
+			        return resolvingDate(time);
+			    },
+				getState(_state){
+					//0未支付,1已支付,2未就诊,3已就诊,4订单完成,-1取消
+					var str = '';
+					switch (_state){
+						case 1:
+							str = '待就诊';
+							break;
+						case 2:
+							str = '待就诊';
+							break;
+						case 3:
+							str = '就诊中';
+							break;	
+						case 4:
+							str = '已完成';
+							break;		
+						default:
+							break;
+					}
+					return str;
+				}
+				
+			}
+		})
+	</script>
+	<style>
+		.layui-table{
+			width: 98%;
+			margin-left: 1%;
+		}
+		span{
+			cursor:pointer
+		}
+		td{
+			text-align: center;
+			overflow: hidden;
+			text-overflow: ellipsis !important;
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+		}
+		th{
+			text-align: center;
+		}
+		#divPage{
+			margin-left: 1%;
+		}
+		table{
+			margin-bottom: 0px !important;
+		}
+	</style>
+</html>

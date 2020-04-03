@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="智慧酒店管理平台" />
+    <meta name="keywords" content="智慧酒店管理平台" />
+    <title>添加banner</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<link rel="stylesheet" type="text/css" href="../css/tree.css" />
+	<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../js/assets/design/css/trumbowyg.css">
+    <script src="../dist/layui.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+    <script src="../js/jquery.form.min.js"></script>
+	<script src="../js/comboTreePlugin.js"></script>
+	<script src="../js/assets/trumbowyg.js"></script>
+	<script src="../js/assets/plugins/base64/trumbowyg.base64.js"></script>
+</head>
+
+<body>
+<div style="padding: 15px;">
+    <form method="post"  id="regform" enctype="multipart/form-data" class="layui-form">
+		
+		<div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">医院：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <select id="hospital" style="width: 350px;height: 30px;">
+					
+				</select>
+            </div>
+        </div>
+		
+		<input type="hidden" id="id" value=""/>
+		<div style="height: 10px;"></div>
+		<div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">上级科室：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <div id="parentDept" class="select-tree-wrap"  style="width: 350px;"></div>
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">科室名称：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <input type="text" name="deptName" id="deptName" lay-verify="" required  autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">排序：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <input type="number" id="sort" name="sort" lay-verify="" required placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+		
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">类型：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <select id="type" class="layui-input">
+					<option value="0" selected>医院</option>
+					<option value="1">外联</option>
+				</select>
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        
+        <!-- <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">描述：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <textarea id="deptDesc" name="descr" class="layui-text" style="width: 350px;height: 100px"></textarea>
+            </div>
+        </div> -->
+	<!-- 	----------------------------------------------------------------------- -->
+		<div class="layui-input-inline">
+			<label class="layui-form-label">科室图片：</label>
+			<div class="layui-input-block" >
+				<button type="button" class="layui-btn" id="upload">
+					<i  class="layui-icon">&#xe67c;</i><span id="imgbtn">上传图片</span>
+				</button>
+				<div class="help-block" style="color: #FF5722">建议宽高尺寸 ：240 X 150 像素</div>
+				<!--<span class="help-block" style="color: #FF5722">建议宽高尺寸 ：150 X 200 像素 </span>-->
+				<img id="img" src="" class='lazy' style='width:240px; height:150px;padding-top:10px'>
+			</div>
+		</div>
+		
+		<div class="layui-input-inline" style="display: flex;align-items: center;">
+			<label class="layui-form-label">图文咨询</label>
+			<input type="checkbox" value="1" lay-filter="encrypt" lay-skin="primary" id="tuwen" name="tuwen">
+			<label class="layui-form-label">视频咨询</label>
+			<input type="checkbox" value="2" lay-filter="encrypt" lay-skin="primary" id="shipin" name="shipin">
+			<label class="layui-form-label">健康宣教</label>
+			<input type="checkbox" value="3" lay-filter="encrypt" lay-skin="primary" id="health" name="health">
+			<label class="layui-form-label">远程会诊</label>
+			<input type="checkbox" value="4" lay-filter="encrypt" lay-skin="primary" id="huiyi" name="huiyi">
+		</div>
+		
+		<div class="layui-input-inline">
+		    <label class="layui-form-label" style="width: 70px;">科室简介：</label>
+		    <div class="layui-input-block">
+		        <div onmousedown="show_element(event)" style="clear:both;width:480px"  name="deptInfo" id="content" class="editor"></div>
+		        <!--<textarea style="height: 230px" name="deptInfo" id="deptInfo" class="layui-input"></textarea>-->
+		    </div>
+		</div>
+		<!-- ----------------------------------------------------------------------- -->
+		
+        <div style="height: 10px;"></div>
+        <input type="hidden" id="id" name="id">
+        <input type="button" style="margin: 40px 195px;width: 80px;" value="保存" id="saveBtn">
+    </form>
+</div>
+</body>
+
+<script type="text/javascript">
+
+	$(function(){
+        //请求参数
+        //var list = {};
+        //
+		layui.use(['element', 'table', 'form', 'laydate', 'layer', 'laypage','upload'], function(){
+			var pd = "";
+			var upload = layui.upload;
+			var form = layui.form;
+			var deptNo="";
+			var obj=sessionStorage.getItem("content");
+			if(obj==null || obj==""){
+			}else{
+			    var json=JSON.parse(obj);
+				console.log(json)
+			    deptNo=json.deptNo;
+			    $("#isShowHealth").empty();
+			    if(json.hasImage==1){ // 图文
+			        $("#tuwen").attr("checked","checked")
+			    }else {
+			        $("#tuwen").removeAttr('checked')
+			    }
+				if(json.hasVideo==1){ // 视频
+				    $("#shipin").attr("checked","checked")
+				}else {
+				    $("#shipin").removeAttr('checked')
+				}
+				if(json.isShowHealth==1){ // 健康
+				    $("#health").attr("checked","checked")
+				}else {
+				    $("#health").removeAttr('checked')
+				}
+				if(json.hashuizhen==1){ // 会议
+				    $("#huiyi").attr("checked","checked")
+				}else {
+				    $("#huiyi").removeAttr('checked')
+				}
+				form.render('checkbox')// 重点 不加的话,attr添加cheched属性无效
+			}
+			
+			var hasImage = 0;
+			var hasVideo = 0;
+			var isShowHealth = 0;
+			var hashuizhen = 0;
+			if($('#tuwen').prop('checked')){
+				hasImage = 1
+			}
+			if($('#shipin').prop('checked')){
+				hasVideo = 1
+			}
+			if($('#health').prop('checked')){
+				isShowHealth = 1
+			}
+			if($('#huiyi').prop('checked')){
+				hashuizhen = 1
+			}
+			console.log($('#tuwen').prop('checked'))
+			form.on('checkbox(encrypt)', function(data){
+				if(data.value == 1){ //图文
+					if(data.elem.checked){
+						hasImage = 1
+					} else {
+						hasImage = 0
+					}
+				} 
+				if(data.value == 2){ //视频
+					if(data.elem.checked){
+						hasVideo = 1
+					} else {
+						hasVideo = 0
+					}
+				} 
+				if(data.value == 3){ //健康
+					if(data.elem.checked){
+						isShowHealth = 1
+					} else {
+						isShowHealth = 0
+					}
+				} 
+				if(data.value == 4){ //会议
+					if(data.elem.checked){
+						hashuizhen = 1 
+					} else {
+						hashuizhen = 0
+					}
+				} 
+			}); 
+			 
+			function refreshDept(){
+				//$('#parentDept').empty();
+				$.ajax({
+					//请求方式
+					type : "POST",
+					//请求的媒体类型
+					//contentType: "application/json;charset=UTF-8",
+					//请求地址
+					url : url + "/api/admin/deptInfo/listDept",
+					async: false,
+					//数据，json字符串
+					//data : JSON.stringify(list),
+					//请求成功
+					success : function(result) {
+						//$('#parentDept').empty();
+						pd = $('#parentDept').comboTree({
+							source: result.data,
+							isMultiple: false,
+							isFirstClassSelectable: true, //第一级是否可选
+							cascadeSelect: true,
+							selectedlength: 3 //最多可选
+						});
+					},
+					//请求失败，包含具体的错误信息
+					error : function(e){
+						console.log(e.status);
+						console.log(e.responseText);
+					}
+				});
+			}
+			
+			 
+			
+			
+				
+				
+			
+			
+			$.ajax({
+			    //请求方式
+			    type : "POST",
+			    //请求的媒体类型
+			    //contentType: "application/json;charset=UTF-8",
+			    //请求地址
+			    url : url + "/api/admin/deptInfo/listHospital",
+			    //数据，json字符串
+			    //data : JSON.stringify(list),
+			    //请求成功
+			    success : function(result) {
+			        if(result.retCode == '0') {
+						$("#hospital").empty();
+						var data = result.data;
+						for(var i = 0; i < data.length; i++) {
+							$("#hospital").append("<option value='" + data[i].hospitalNo + "'>" + data[i].hospitalName + "</option>");
+						}
+					}
+			    },
+			    //请求失败，包含具体的错误信息
+			    error : function(e){
+			        console.log(e.status);
+			        console.log(e.responseText);
+			    }
+			});
+			form.render('checkbox');
+			
+			$("#saveBtn").click(function(){
+				//请求参数
+				$("#saveBtn").attr("disabled", 'disabled');
+				setTimeout(function(){
+				    $("#saveBtn").attr("disabled", false);
+				}, 2000);
+				var json=JSON.parse(obj);
+				var deptNo=json.deptNo;
+				var loading = layer.load(2);
+				
+				var list = {
+					"deptNo": deptNo,
+					"id" : (getQueryVariable("id") == false ? "" : getQueryVariable("id")),
+					"deptName" : $("#deptName").val(),
+					"sort" : $("#sort").val(),
+					"parentDept" : pd.datas()[0].id,
+					"deptDesc" : $("#deptDesc").val(),
+					"dept_type" : $("#type").val(),
+					"hospitalNo" : $("#hospital").val(),
+					"hasImage": hasImage,
+					"hasVideo": hasVideo,
+					"hashuizhen": hashuizhen,
+					"isShowHealth": isShowHealth
+				};
+				
+				//
+				if(mode == "add") theUrl = url + "/api/admin/deptInfo/add";
+				else theUrl = url + "/api/admin/deptInfo/edit";
+				console.log(list)
+				console.log(theUrl)
+				$.ajax({
+					//请求方式
+					type : "POST",
+					//请求的媒体类型
+					dataType: "json",
+					contentType: 'application/json;charset=UTF-8',
+					//请求地址
+					url : theUrl,
+					//数据，json字符串
+					data : JSON.stringify(list) ,
+					//async: false,
+					//请求成功
+					success : function(result) {
+						console.log(result)
+						if(result.retCode == '0'){
+							alert("保存成功");
+							//refreshDept();
+							//window.location.reload();
+							setTimeout(function () {
+							    var index = parent.layer.getFrameIndex(window.name);
+							    parent.layer.close(index);
+							}, 500);
+						}					
+						else {
+							layer.msg(result.retMsg, {
+							    time: 1000
+							});
+						}
+						layer.close(loading);
+					},
+					//请求失败，包含具体的错误信息
+					error : function(e){
+						
+					}
+				});
+				
+			});
+			
+			
+			
+			
+			function getQueryVariable(variable)
+			{
+			   var query = window.location.search.substring(1);
+			   var vars = query.split("&");
+			   for (var i=0;i<vars.length;i++) {
+					   var pair = vars[i].split("=");
+					   if(pair[0] == variable){return pair[1];}
+			   }
+			   return(false);
+			}
+			
+			var _id = getQueryVariable("id");
+			var mode = "edit";
+			if(_id == false) { 
+				mode = "add";	
+				refreshDept();
+			} else {
+				$.ajax({
+					//请求方式
+					type : "POST",
+					//请求的媒体类型
+					//contentType: "application/json;charset=UTF-8",
+					//请求地址
+					url : url + "/api/admin/deptInfo/getDeptById",
+					//数据，json字符串
+					data : {
+						id : _id
+					},
+					//async: false,
+					//请求成功
+					success : function(result) {
+						if(result.retCode == '0'){
+							refreshDept();
+							//alert(result.data.id);
+							//$("#role_select").attr("comboValue",result.data.id); 
+							var v = $(".select-tree-list li[data-id='" + result.data.parentId + "'] .title-container");
+							//alert(v.attr("data-name"));
+							pd.checkrow(v, result.data.parentId, false);
+							$("#deptName").val(result.data.deptName);
+							$("#sort").val(result.data.sort);
+							$("#type").val(result.data.dept_type);
+							$("#deptDesc").val(result.data.deptDesc);
+						}					
+						else alert("保存失败");
+					},
+					//请求失败，包含具体的错误信息
+					error : function(e){
+						
+					}
+				});
+			}
+		})
+    });
+	
+	
+	
+
+	
+
+</script>
+
+</html>

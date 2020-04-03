@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="医院管理平台" />
+    <meta name="keywords" content="医院管理平台" />
+    <title>科室简介</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/body.css" />
+	
+    <script src="../js/common.js"></script>
+    <script src="../dist/layui.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+    <script src="js/scheduling.js"></script>
+   
+</head>
+
+<body>
+<div id='summarys' class="content-wrap">
+    
+    <div class="layui-form-item">
+		<label class="layui-form-label">门诊类型:</label>
+		<label class="layui-form-label">医生:</label>
+		<label class="layui-form-label">科室:</label>
+		<label class="layui-form-label">职称:</label>
+	</div>
+	
+    <table class="tableContent layui-table">
+        <tr>
+            <th style="width:12%;">日期</th>
+            <th style="width:12%;">上下午</th>
+            <th style="width:12%;">开始时间</th>
+            <th style="width:12%;">结束时间</th>
+            <th style="width:12%;">发布号源总数</th>
+			<th style="width:12%;">门诊类型</th>
+			<th style="width:12%;">预约规则</th>
+			<th style="width:16%;">备注</th>
+        </tr>
+        
+		<tr style="background-color:white;">
+			<td id="date-1" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="date-1-1-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-1-1-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-1-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+		    <td><select class="layui-input" id="type-1-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-1-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td><input id="id-1-1" type="hidden" value="" /></td>
+		</tr>
+		
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="date-1-2-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-1-2-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-1-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="type-1-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-1-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td><input id="id-1-2" type="hidden" value="" /></td>
+		</tr>
+		
+		<tr style="background-color:white;" >
+			<td id="date-2" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="date-2-1-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-2-1-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-2-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+		    <td><select class="layui-input" id="type-2-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-2-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td></td>
+		</tr>
+		
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="date-2-2-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-2-2-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-2-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="type-2-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-2-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td></td>
+		</tr>
+		
+		<tr style="background-color:white;" >
+			<td id="date-3" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="date-3-1-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-3-1-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-3-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+		    <td><select class="layui-input" id="type-3-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-3-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td></td>
+		</tr>
+		
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="date-3-2-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-3-2-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-3-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="type-3-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-3-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td></td>
+		</tr>
+       
+	   <tr style="background-color:white;" >
+			<td id="date-4" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="date-4-1-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-4-1-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-4-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+		    <td><select class="layui-input" id="type-4-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-4-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td></td>
+		</tr>
+		
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="date-4-2-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-4-2-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-4-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="type-4-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-4-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td></td>
+		</tr>
+	   
+	   <tr style="background-color:white;" >
+			<td id="date-5" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="date-5-1-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-5-1-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-5-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+		    <td><select class="layui-input" id="type-5-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-5-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td></td>
+		</tr>
+		
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="date-5-2-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-5-2-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-5-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="type-5-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-5-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td></td>
+		</tr>
+	   
+	   
+	   <tr style="background-color:white;" >
+			<td id="date-6" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="date-6-1-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-6-1-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-6-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+		    <td><select class="layui-input" id="type-6-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-6-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td></td>
+		</tr>
+		
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="date-6-2-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-6-2-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-6-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="type-6-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-6-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td></td>
+		</tr>
+		
+		<tr style="background-color:white;" >
+			<td id="date-7" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="date-7-1-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-7-1-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-7-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+		    <td><select class="layui-input" id="type-7-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-7-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td></td>
+		</tr>
+		
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="date-7-2-from" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="date-7-2-to" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><input type="text" class="layui-input" id="num-7-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="type-7-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">普通</option><option value="2">专家</option></select></td>
+			<td><select class="layui-input" id="can-7-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="1">当日可预约</option><option value="2">当日不可预约</option></select></td>
+			<td></td>
+		</tr>
+		
+    </table>
+    
+	
+	
+</div>
+
+
+
+
+<script>
+	
+
+</script>
+
+
+
+</body>
+
+</html>

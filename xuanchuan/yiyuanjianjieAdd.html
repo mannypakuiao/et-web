@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="医院管理平台" />
+    <meta name="keywords" content="医院管理平台" />
+    <title>修改医院</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" href="../js/assets/design/css/trumbowyg.css">
+    <script src="../dist/layui.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+    <script src="js/yiyuanjianjie.js"></script>
+    <script src="../js/assets/trumbowyg.js"></script>
+    <script src="../js/assets/plugins/base64/trumbowyg.base64.js"></script>
+    <style>
+        .layui-input-block{
+            margin-left: 100px;
+        }
+        .layui-form-label{
+            width: 80px;
+        }
+    </style>
+</head>
+
+<body>
+<div style="padding: 15px;">
+    <div class="layui-input-inline" style="display: none">
+        <label class="layui-form-label">ID：</label>
+        <div class="layui-input-block" style="width: 400px; ">
+            <input type="text" name="id" id="id" lay-verify=""   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">医院名称：</label>
+        <div class="layui-input-block" style="width: 400px;">
+            <input type="text" name="hospitalName" id="hospitalName" lay-verify=""   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline" >
+        <label class="layui-form-label">医院地址：</label>
+        <div class="layui-input-block" style="width: 400px;">
+            <input type="text" name="address" id="address" lay-verify="" required placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">医院电话：</label>
+        <div class="layui-input-block" style="width: 400px;">
+            <input type="text" name="tel" id="tel" lay-verify="" required placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    			<div class="layui-input-inline" >
+    				<label class="layui-form-label">医院等级：</label>
+    				<div class="layui-input-block" style="width: 400px;">
+    					<input type="text"   name="hospitalLevel" id="hospitalLevel" lay-verify=""  placeholder="" autocomplete="off" class="layui-input">
+    				</div>
+    			</div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">医院简介：</label>
+        <div class="layui-input-block" >
+            <div onmousedown="show_element(event)" style="clear:both" id="content" class="editor"></div>
+            <!--<div onmousedown="show_element(event)" style="clear:both"  name="hospitalDesc" id="content" class="editor"></div>-->
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="layui-input-inline">
+        <label class="layui-form-label">医院类型：</label>
+        <div class="layui-input-block" style="width: 400px;">
+            <input type="text"   name="hospitalType" id="hospitalType" lay-verify=""  placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div style="width: 100%;display: flex;justify-content: center" >
+        <button style="margin: 20px 140px;width: 80px;" id="save">保存</button>
+    </div>
+
+
+</div>
+</body>
+</html>

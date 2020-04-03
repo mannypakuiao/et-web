@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="医院管理平台" />
+    <meta name="keywords" content="医院管理平台" />
+    <title>患者管理</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/body.css" />
+    <script src="../js/common.js"></script>
+    <script src="../dist/layui.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+    <script src="js/wz_order.js"></script>
+    <style>
+        .layui-input-block{
+            margin-left: 0px;
+        }
+    </style>
+</head>
+<body>
+<div class="content-wrap">
+    <div class="tableTop layui-form" lay-filter="tableTop">
+        <div class="layui-form">
+            <div class="layui-input-inline" style="margin-left: 45px;">
+                <label class="layui-form-label" style="width: 70px;display:inline-block;">患者：</label>
+                <div class="layui-input-block">
+                    <input type="text" id="name" name="name" lay-verify="" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-input-inline" style="margin-left: 45px;">
+                <label class="layui-form-label" style="width: 70px;display:inline-block;">订单号</label>
+                <div class="layui-input-block">
+                    <input type="text" id="order_no" name="order_no" lay-verify="" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-input-inline" style="margin-left: 45px;">
+                <label class="layui-form-label" style="width: 70px;display:inline-block;">门诊类型</label>
+                <div class="layui-input-block">
+                    <input type="text" id="mz_type" name="mz_type" lay-verify="" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- <div class="layui-input-inline" style="margin-left: 45px;">
+                <label class="layui-form-label" style="width: 70px;display:inline-block;">标签</label>
+                <div class="layui-input-block">
+                    <input type="text" id="tips" name=""tips"" lay-verify="" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div> -->
+            <div class="layui-form-item" style="margin-bottom:60px;">
+	            <button style="position: absolute;top: 65px;right:25px;" id="search" class="layui-btn" lay-submit lay-filter="tableTop">查找</button>
+	        </div>
+        </div>
+        
+        <table class="tableContent countTableContent layui-table">
+            <thead>
+            <tr>
+                <th >日期</th>
+                <th >订单号</th>
+                <th >门诊类型</th>
+                <th >患者</th>
+                <th >手机号</th>
+                <th >医生</th>
+                <th >科室</th>
+                <th >订单状态</th>
+                <th >评价状态</th>
+                <th >问诊来源</th>
+            </tr>
+            </thead>
+            <tbody>
+            	
+            </tbody>
+        </table>
+        <div id="page" style="margin-left: 28%">
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript">
+	
+	/* $("#search").on("click", function(){
+		layui.use(['form', 'element', "table", 'layer', 'laydate'], function() {
+			var layer = layui.layer;
+			layer.open({
+                type: 2,
+                title: "添加科室",
+                area: ['400px', '600px'],
+                content: 'patient_detail.html'
+            });
+		});
+	}); */
+</script>
+</html>

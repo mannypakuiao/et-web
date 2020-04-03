@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="医院管理平台" />
+    <meta name="keywords" content="医院管理平台" />
+    <title>科室管理</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/body.css" />
+    <script src="../js/common.js"></script>
+    <script src="../dist/layui.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+	<script src="../js/http.js"></script>
+    <!-- <script src="js/healthDept.js"></script> -->
+    <style>
+        .layui-input-block{
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+	<div class="content-wrap">
+		<div class="tableTop layui-form" lay-filter="tableTop">
+			<div class="layui-form">
+				<div class="layui-input-inline"  style="width: 300px;">
+					<label class="layui-form-label" style="width: 70px;display:inline-block;" id="dept">科室</label>
+					<div class="layui-input-block">
+						<input type="text" id="title" name="title" lay-verify="" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item" >
+				<button style="position: absolute;top: 15px;right: 20%;" id="search" class="layui-btn" lay-submit lay-filter="tableTop">查找</button>
+				<button style="position: absolute;top: 15px;right: 5%;" id="add" class="layui-btn" lay-submit lay-filter="tableTop">添加</button>
+			</div>
+			<form class="layui-form" action="">
+				<table class="tableContent countTableContent layui-table">
+					<thead>
+					<tr>
+						<th style="width:25%;">科室名称</th>
+						<th style="width:10%;">排序</th>
+						<!-- <th style="width:25%;">上级科室</th> -->
+						<th style="width:8%;">图文咨询</th>
+						<th style="width:8%;">视频咨询</th>
+						<th style="width:8%;">健康宣教</th>
+						<th style="width:8%;">远程会诊</th>
+						<th style="width:25%;">操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</form>
+			<div id="page" style="margin-left: 28%">		
+			</div>
+		</div>
+	</div>
+</body>
+
+
+<script type="text/javascript">
+
+$(function() {
+
+    layui.use(['element', 'table', 'form', 'laydate', 'layer', 'laypage'], function() {
+		
+		
+		var pageNo=1;
+        var pageSize=10;
+		var layer = layui.layer;
+        var laydate = layui.laydate;
+        var laypage = layui.laypage;
+		var form = layui.form;
+		function getPageList(totalSize,pageNo,pageSize){
+            laypage.render({
+                elem: 'page'
+                ,curr:pageNo
+                ,count:totalSize
+                ,limit:pageSize
+                ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                ,jump: function(obj,first){
+                    //首次不执行
+                    if(!first){
+                        pageNo=obj.curr;
+                        pageSize=obj.limit;
+                        find(pageNo,pageSize);
+                    }
+                }
+            });
+        }
+		
+		function find(pageNo,pageSize) {
+			var data = {
+				"pageNumber":pageNo,
+				"pageSize": pageSize,
+				"deptName": $("#title").val()
+			};
+			data = JSON.stringify(data);
+			$.post({
+				url: url + "/api/admin/deptInfo/listDeptPage",
+				data: data,
+				method:"POST",
+				dataType: "json",
+				contentType: 'application/json;charset=UTF-8',
+				success: function (res) {
+					console.log(res)
+					getPageList(res.data.totalSize,pageNo,pageSize);
+					$(".tableContent tbody").empty();
+					if (res.data.list.length > 0) {
+						for (var i = 0; i < res.data.list.length; i++) {
+							var content = res.data.list[i];
+							var tr = "";
+							tr+="<tr>";
+							tr+="<td hidden='true' class='num'>" + i + "</td>";
+							tr+="<td>" + content.deptName + "</td>";
+							tr+="<td>" + content.sort + "</td>";
+							tr+="<td class='chebox'>" + 
+								"<input type='checkbox' value='1' lay-filter='encrypt' "+(res.data.list[i].hasImage && res.data.list[i].hasImage == 1?'checked':'')+" lay-skin='primary' name='tuwen'>"
+							 + "</td>";
+							tr+="<td class='chebox'>" +
+								"<input type='checkbox' value='2' lay-filter='encrypt' "+(res.data.list[i].hasVideo && res.data.list[i].hasVideo == 1?'checked':'')+" lay-skin='primary' name='shipin'>"
+							 + "</td>";
+							tr+="<td class='chebox'>" +
+								"<input type='checkbox' value='3' lay-filter='encrypt' "+(res.data.list[i].isShowHealth && res.data.list[i].isShowHealth == 1?'checked':'')+" lay-skin='primary' name='health'>"
+							 + "</td>";
+							tr+="<td class='chebox'>" +
+								"<input type='checkbox' value='4' lay-filter='encrypt' "+(res.data.list[i].hashuizhen && res.data.list[i].hashuizhen == 1?'checked':'')+" lay-skin='primary' name='huiyi'>"
+							 + "</td>";
+							// tr+="<td>" + content.parentNo + "</td>";
+							tr+="<td><a href='#' onclick='edit(" + content.id + ");' class='personState delete'>修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' onclick='del(" + content.id + ");' class='personState delete'>删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' onclick='setRole(" + content.id + ");' class='personState delete'>权限</a></td>";
+							tr+="</tr>";
+							$(".tableContent tbody").append(tr);
+						}
+						var hasImage ='';
+						var hasVideo ='';
+						var hashuizhen ='';
+						var isShowHealth ='';
+						var data = '';
+									
+						form.on('checkbox(encrypt)', function(data){
+						  var num = $(this).parents("tr").find(".num").text();
+						  var deptNo = res.data.list[num].deptNo;
+							
+						  if(data.value == 1){ //图文咨询
+							  if(data.elem.checked ){
+								  data = {
+									  hasImage:  1,
+									  deptNo: deptNo
+								  }
+							  } else {
+								  data = {
+								  	  hasImage:  0,
+									  deptNo: deptNo
+								  }
+							  }
+						  }
+						  if(data.value == 2){ //视频咨询
+							  if(data.elem.checked){
+								  data = {
+									  hasVideo:  1,
+									  deptNo: deptNo
+								  }
+							  } else {
+								  data = {
+									  hasVideo:  0,
+									  deptNo: deptNo
+								  }
+							  }
+						  }
+						  if(data.value == 3){ //健康宣教
+							  if(data.elem.checked){
+								  data = {
+									  isShowHealth:  1,
+									  deptNo: deptNo
+								  }
+							  } else {
+								  data = {
+									  isShowHealth:  0,
+									  deptNo: deptNo
+								  }
+							  }
+						  }
+						  if(data.value == 4){ //远程会诊
+							  if(data.elem.checked){
+								  data = {
+									  hashuizhen:  1,
+									  deptNo: deptNo
+								  }
+							  } else {
+								  data = {
+									  hashuizhen:  0,
+									  deptNo: deptNo
+								  }
+							  }
+						  }			
+						  var api = '/api/admin/health/setDeptOpenSet';
+						  request(api,data,function(ress){
+							  if (ress.data.retCode == 0) {
+								  layer.msg('操作成功', {
+									  time: 1000
+								  });
+								   $(".layui-laypage-btn")[0].click(); //刷新当前页
+							  } else {
+								  layer.msg(ress.data.retMsg, {
+									  time: 1000
+								  });
+							  }
+						  })
+						}); 
+						form.render();
+					}
+					$(".delete").click(function(){
+						var num = $(this).parents("tr").find(".num").text();
+						sessionStorage.setItem("content", JSON.stringify(res.data.list[num]));
+					})
+				}
+			});
+		}
+		
+		find(pageNo,pageSize);
+		
+		
+		$("#search").click(function(){
+			find(1,10);
+        });
+		
+		
+		
+	
+		//添加
+        $("#add").click(function(){
+            $("#yue").css("display","none");
+            sessionStorage.setItem("content", "");
+            layer.open({
+                type: 2,
+                title: "添加科室",
+                area: ['70%', '70%'],
+                content: 'healthDeptAdd.html',
+				end:function () {
+				    $("#search").trigger("click")
+				}
+            });
+        })
+		
+		
+	
+	});
+		
+});
+		//修改
+		function edit(id) {
+			
+            layer.open({
+                type: 2,
+                title: "添加科室",
+                area: ['70%', '70%'],
+                content: 'healthDeptAdd.html?id=' + id,
+				end:function () {
+				    $("#search").trigger("click")
+				}
+				
+            });
+		}
+		
+		
+		//删除
+		function del(id){
+
+            $.post({
+				url: url + "/api/admin/deptInfo/del",
+				data: {
+					"id":id
+				},
+				method:"POST",
+				//dataType: "json",
+				//contentType: 'application/json;charset=UTF-8',
+				success: function (res) {
+					if(res.retCode == '0'){
+						alert("删除成功");
+						window.location.reload();
+					} 
+				}
+			});
+		
+		};
+		
+		var currentDeptId;
+		
+		
+		
+		function setRole(id){
+			
+			layer.open({
+                type: 2,
+                title: "设置权限",
+                area: ['70%', '70%'],
+                content: 'menu.html?id='+id
+            });
+		}
+		
+		
+
+
+</script>
+
+	
+	
+
+
+
+
+
+</html>

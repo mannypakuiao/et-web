@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="医院管理平台" />
+    <meta name="keywords" content="医院管理平台" />
+    <title>支付查询</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/body.css" />
+    <script src="../js/common.js"></script>
+    <script src="../dist/layui.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+    <script src="js/zhifu.js"></script>
+    <style type="text/css"></style>
+    <style>
+        .layui-input-block{
+            margin-left: 80px;
+        }
+        .layui-col-xs3{
+            width: 33.33%;
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+<div class="content-wrap">
+    <div class="tableTop layui-form" lay-filter="tableTop">
+        <div class="layui-form-item">
+
+            <label class="layui-form-label">日期</label>
+            <div class="layui-input-block">
+                <div class="buyDayBox" class="layui-input-inline" style="display: inline-flex;justify-content: flex-start;">
+                    <input  id="crtDateBeg" autocomplete="off" class="layui-input"/><li style="width: 9%;margin-left:10px;line-height: 35px">-</li><input id="crtDateEnd" autocomplete="off" class="layui-input"/>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+		
+            <div class="layui-input-inline">
+                <label class="layui-form-label" >支付方式</label>
+                <div   class="layui-input-block">
+                    <select name="productName" id="payPlatform" lay-verify="" class="layui-input">
+                        <option value="0" selected >全部</option>
+                        <option value="1">微信</option>
+						<option value="2">支付宝</option>
+                    </select>
+                </div>
+            </div>
+            <!--<div class="layui-input-inline">-->
+                <!--<label class="layui-form-label" >姓名</label>-->
+                <!--<div class="layui-input-block">-->
+                    <!--<input type="text" id="cardName" name="cardName" lay-verify="" placeholder="" autocomplete="off" class="layui-input">-->
+                <!--</div>-->
+            <!--</div>-->
+            <button style="position: absolute;top: 15px;right: 16%;" id="search" class="layui-btn" lay-submit lay-filter="tableTop">查找</button>
+           
+        </div>
+    </div>
+	
+	<div class="tableTop layui-form" lay-filter="tableTop" style="padding :20px 0px;background-color:#ecf6fd">
+        <div class="layui-row">
+            <div class="layui-col-xs3">
+                <div class="grid-demo grid-demo-bg1">微信
+                    <div style="color:#009688;;font-size:18px;" id="wxPay">0  元</div>
+                    <div id="wxNum">0  笔</div>
+                </div>
+            </div>
+            <div class="layui-col-xs3">
+                <div class="grid-demo grid-demo-bg1">支付宝
+                    <div style="color:#009688;;font-size:18px;" id="zfbPay">0  元</div>
+                    <div id="zfbNum">0  笔</div>
+                </div>
+            </div>
+           
+            <div class="layui-col-xs3">
+                <div class="grid-demo grid-demo-bg1">总金额
+                    <div style="color:#009688;;font-size:18px;" id="totalMoney">0  元</div>
+                    <div id="totalOrder">0  笔</div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+
+    <table class="tableContent layui-table">
+        <thead>
+        <tr>
+            <th >序号</th>
+            <th >支付类型</th>
+			<th >类别</th>
+			<th >卡号</th>
+			<th >金额</th>
+            <th >内容</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div id="page" style="margin-left: 28%"></div>
+</div>
+</body>
+</html>

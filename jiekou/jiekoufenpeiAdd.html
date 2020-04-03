@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="医院管理平台" />
+    <meta name="keywords" content="医院管理平台" />
+    <title>医生简介</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <script src="../dist/layui.js"></script>
+    <script src="../js/common.js"></script>
+	<script src="../js/vue.min.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+</head>
+
+<body>
+	<div id="container">
+		<div id="shu"></div>
+		<button style="margin: 20px 140px;width: 80px;" id="save" class="layui-btn" @click="update">保存</button>
+	</div>
+</body>
+<script>
+	new Vue({
+		el: '#container',
+		data() {
+			return {
+				data:[],
+				inst1: ''
+			}
+		},
+		mounted: function (){
+			this.$nextTick(() =>{
+				layui.use(['tree', 'layer'],()=>{
+					var laydata = {
+						tree: layui.tree, 
+						layer: layui.layer
+					}
+					this.initPage(laydata);
+				})
+			})
+		},
+		methods:{
+			initPage:function(laydata){
+				var data = {
+					pageNumber: 1,
+					pageSize: 1000,
+					id: layui.data('param').jiekouId
+				}
+				var api = "/service/InterfaceFrom/selById";
+				$ajax(api, data, true, (res) =>{
+					this.Rendering(laydata,res.data)
+				})
+			},
+			//渲染树形
+			Rendering:function(laydata,res){
+				this.inst1 = laydata.tree.render({
+					elem: '#shu',  //绑定元素
+					showCheckbox:true,
+					id:'trees',
+					data: res,
+				});
+			},
+			//修改
+			update:function(){
+				var checkData = this.inst1.getChecked('trees');
+				var ids = '';
+				var data = {
+					ifId: layui.data('param').jiekouId
+				}
+				for(var i = 0; i < checkData.length; i++){
+					var child = checkData[i].children;
+					for(var j = 0; j < child.length; j++){
+						ids += child[j].id + ','
+					}
+				}
+				var api = "/service/InterfaceFrom/saveInterface?imId2="+ids;
+				$ajax(api, data, true, (res) =>{
+					setTimeout(function () {
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index);
+					}, 500);
+				})
+			}
+		}
+	})
+</script>
+</html>

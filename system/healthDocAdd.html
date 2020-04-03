@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="智慧酒店管理平台" />
+    <meta name="keywords" content="智慧酒店管理平台" />
+    <title>添加医生</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <script src="../dist/layui.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+    <script src="../js/jquery.form.min.js"></script>
+    <script src="js/healthDocAdd.js"></script>
+</head>
+
+<body>
+<div style="padding: 15px;">
+    <form method="post"  id="regform" enctype="multipart/form-data">
+        <div class="">
+            <label class="layui-form-label" style="width: 70px;">所属科室</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <select id="healthDeptId" name="healthDeptId" lay-verify="healthDeptId" lay-filter="healthDeptId"  class="layui-input">
+
+                </select>
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">姓名：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <input type="text" name="docName" id="docName" lay-verify="" required  autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">职称：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <input type="text" name="docJob" id="docJob" lay-verify="" required  autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">电话：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <input type="text" name="phone" id="phone" lay-verify="" required  autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">密码：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <input type="text" name="password" id="password" lay-verify="" required  autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">图片：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <input type="file" name="file" id="file">
+                <br>
+                <span id="spanimg" class="help-block">建议大小 100 X 150 像素</span>
+            </div>
+        </div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;"></label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;" id="img">
+            </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label" style="width: 70px;">描述：</label>
+            <div class="layui-input-block" style="width: 350px;margin-left: 85px;">
+                <textarea id="descr" name="descr" class="layui-text" style="width: 350px;height: 100px"></textarea>
+            </div>
+        </div>
+
+        <div style="height: 10px;"></div>
+        <input type="hidden" id="id" name="id">
+        <input type="submit" style="margin: 40px 195px;width: 80px;" value="保存" id="save">
+    </form>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="医院管理平台" />
+    <meta name="keywords" content="医院管理平台" />
+    <title>门诊结班</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/body.css" />
+    <script src="../js/common.js"></script>
+    <script src="../dist/layui.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+    <script src="js/jieban.js"></script>
+    <style type="text/css"></style>
+    <style>
+        .layui-input-block{
+            margin-left: 80px;
+        }
+        .layui-col-xs3{
+            width: 20%;
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+<div class="content-wrap">
+    <div class="tableTop layui-form" lay-filter="tableTop">
+        <div class="layui-form-item">
+
+            <label class="layui-form-label">结班时间</label>
+            <div class="layui-input-block">
+                <div class="buyDayBox" class="layui-input-inline" style="display: inline-flex;justify-content: flex-start;">
+                    <input  id="crtDateBeg" autocomplete="off" class="layui-input"/><li style="width: 9%;margin-left:10px;line-height: 35px">-</li><input id="crtDateEnd" autocomplete="off" class="layui-input"/>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <label class="layui-form-label" >支付方式</label>
+                <div   class="layui-input-block">
+                    <select name="productName" id="payWay" lay-verify="" class="layui-input">
+                        <option value="">全部</option>
+                        <option value="3">支付宝</option>
+                        <option value="4">微信</option>
+                    </select>
+                </div>
+            </div>
+            <!--<div class="layui-input-inline">-->
+                <!--<label class="layui-form-label" >姓名</label>-->
+                <!--<div class="layui-input-block">-->
+                    <!--<input type="text" id="cardName" name="cardName" lay-verify="" placeholder="" autocomplete="off" class="layui-input">-->
+                <!--</div>-->
+            <!--</div>-->
+            <button style="position: absolute;top: 15px;right: 16%;" id="search" class="layui-btn" lay-submit lay-filter="tableTop">查找</button>
+            <button style="position: absolute;top: 15px;right: 5%;" id="add" class="layui-btn" lay-submit lay-filter="tableTop">添加</button>
+        </div>
+    </div>
+
+    <table class="tableContent layui-table">
+        <thead>
+        <tr>
+            <th >序号</th>
+            <th >单据编号</th>
+            <th >结班人</th>
+            <th >结班时间</th>
+            <th >开始时间</th>
+            <th >结束时间</th>
+            <th >是否收款</th>
+            <th >收款人</th>
+            <th >收款时间</th>
+			<th >操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table> 
+    <div id="page" style="margin-left: 28%"></div>
+</div>
+</body>
+</html>

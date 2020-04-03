@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="./css/common.css">
+  <style>
+	 /* html{
+	  		  font-size: 37.5px;
+	  	  } */
+	  	  body{
+	  		  width: 100%;
+	  		  height: 100%;
+	  	  }
+	  	  .load-modal {
+	  		  height: 2rem;
+	  		  width: 40%;
+	  		  font-size: 0.3rem;
+	  	  	position: fixed;
+	  		z-index: 999;
+	  		top: 50%;
+	  		left: 50%;
+	  		-webkit-transform: translate(-50%,-50%);
+	  		transform: translate(-50%,-50%);
+	  		background: rgba(17,17,17,.7);
+	  		text-align: center;
+	  		border-radius: 5px;
+	  		color: #fff;
+	  	  }
+	  	  .gif{
+	  		   width: 30px;
+	  		   text-align: center;
+	  		   position: absolute;
+	  		   top: 0;
+	  		   right: 0;
+	  		   bottom: 36px;
+	  		   left: 0;
+	  		   margin: auto;
+	  	  }
+	  	  
+	  	  .gray-text{
+	  		  margin-top: 1.2rem;
+	  	  }
+	  	  #local_stream,#video_grid{
+	  		  width: 100%;
+	  		  height: 100%;
+	  	  }
+	  	  .video-view{
+	  		 width: 140px;
+	  		 height: 180px;
+	  		 z-index: 999;
+	  		 position: absolute;
+	  		 top: 0;
+	  		 right: 0;
+	  	  }
+	  	  #imgs{
+	  		  z-index: 9999999;
+	  		  height: 100px;
+	  		  width: 100%;
+	  		  position: absolute;
+	  		  bottom: 0;
+	  		  display: flex;
+	  		  justify-content: space-between;
+	  	  }
+	  	  #imgs img{
+	  		  width: 60px;
+	  		  height: 60px;
+	  		  margin: 0 50px;
+	  	  }
+  </style>
+  
+  <title>视频问诊</title>
+</head>
+
+<body >
+   <div class="load-modal" style="display: none;">
+		<img class="gif" src="./imgs/11.gif" >
+		<p class="gray-text">视频初始化中，请稍后...</p>
+	</div>
+  <div id="setting-collapse" class="collapse" aria-labelledby="setting-collapse" style="display: none;">
+    <div class="card-body">
+      <div class="form-group">
+        <label for="cameraId" class="bmd-label-floating">摄像头</label>
+        <select class="form-control" id="cameraId" name="cameraId">
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="microphoneId" class="bmd-label-floating">麦克风</label>
+        <select class="form-control" id="microphoneId" name="microphoneId">
+        </select>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="video-grid" id="video_grid" >
+    <div id="local_stream" class="video-placeholder" >
+      <div id="local_video_info" class="video-info"></div>
+    </div>
+  </div>
+  
+
+  
+  <div id="imgs" style="display: none;">
+  	<img id="switchDevice" src="./imgs/camer.png" >
+	<img id="close" src="./imgs/out-phone.png" >
+  </div>
+
+  <!-- 接口 -->
+  <script src="./js/config.js"></script>
+  <!-- Demo 相关第三方库-->
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script src="../../../dist/layui.all.js"></script>
+  <script src="./js/popper.js"></script>
+  <!-- 引入 TRTC WEB SDK 脚本 -->
+  <script src="./js/trtc.js"></script>
+  <!-- Demo 相关脚本 -->
+  <script src="./js/utils.js"></script>
+  <script src="./js/rtc-client.js"></script>
+  <script src="./js/index.js"></script>
+  <!-- uni 的 SDK，必须引用。 -->
+  <script type="text/javascript" src="./js/uni.webview.1.5.2.js"></script>
+  <script type="text/javascript">
+		    (function(doc, win) {
+			      var docEl = doc.documentElement,
+			          isIOS = navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+			          dpr = isIOS ? Math.min(win.devicePixelRatio, 3) : 1,
+			          dpr = window.top === window.self ? dpr : 1,
+			          resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+			      docEl.dataset.dpr = dpr;
+			      var recalc = function() {
+			          var width = docEl.clientWidth;
+			          if (width / dpr > 750) {
+			              width = 750 * dpr;
+			          }
+			          docEl.dataset.width = width
+			          docEl.dataset.percent = 100 * (width / 750);
+			          docEl.style.fontSize = 100 * (width / 750) + 'px';
+			      };
+			      recalc()
+			      if (!doc.addEventListener) return;
+			      win.addEventListener(resizeEvt, recalc, false);
+			      $(".load-modal").show();
+			 })(document, window);
+		
+		        var cameraId='user'
+				
+				document.addEventListener('UniAppJSBridgeReady', function() { 
+					
+					//页面加载执行
+					window.addEventListener('load', function(){
+					 	init()//初始化视频
+					}, false);
+					
+					//挂断
+					document.querySelector('#close').addEventListener('click', function(evt) { 
+						leave();//关闭流
+						layui.layer.closeAll();
+						//var videoIndex= layui.data('param').videoIndex;
+						
+						// console.log(index);
+						// uni.navigateBack({
+						// 	delta: 1
+						// });
+						// uni.navigateTo({
+						// 	url: '/pages/video/videolist'  
+						// });  
+					});  
+					//切换前后摄像头
+					document.querySelector('#switchDevice').addEventListener('click', function(evt) { 
+						 //移动设备下 user 前置,   environment 后置
+						 //默认前置
+						 
+						 if(cameraId=='environment'){
+							 switchDevice('user')
+							 cameraId='user'
+						 }else{
+							 switchDevice('environment')
+							 cameraId='environment'
+						 }
+					});  
+					
+					//切换视频画面
+					var inintType=0;
+					document.querySelector('#video_grid').addEventListener('click', function(evt) {
+						  console.log("切换")
+						 
+						  if(inintType==0){
+							 var videoView= $("div").hasClass("video-view");
+							 console.log(videoView)
+							 if(videoView){
+							 	local_rang(1)
+								inintType=1;
+							 } 
+						  }else{
+							  document.querySelector('.video-view').addEventListener('click', function(evt) {
+								  local_rang(0)
+							  })
+							  document.querySelector('.video-placeholder').addEventListener('click', function(evt) {
+								  local_rang(1)
+							  })
+						  }
+					}); 
+				});
+  </script>
+</body>
+
+</html>

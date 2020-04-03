@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/jquery-2.2.3.js"></script>
+		<script src="../../dist/layui.all.js"></script>
+		<script src="../../js/util.js"></script>
+		<script src="../../js/common.js"></script>
+		<!-- <script src="../../model/globalParams.js"></script> -->
+		<link rel="stylesheet" type="text/css" href="../../dist/css/layui.css" />
+	</head>
+	<body>
+		<div class="layui-form" id="container">
+			<div class="layui-form-item">
+				<label class="layui-form-label">订 单 号 : <font>{{record.orderNo}}</font></label>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">患者姓名 : <font>{{record.userName}}</font></label>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">就 诊 号 : <font>{{record.jzh}}</font></label>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">预约时间 : 
+					<font>
+						{{record.registerDate | formatDate}}
+						{{record.registerFlag==1?'上午':'下午'}}
+					</font>
+				</label>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">订单状态 : <font><td>{{record.orderState | getState}}</td></font></label>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">咨询目的 : <font>{{record.objective}}</font></label>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">病情描述 :
+					<font>
+						{{record.content}}
+					</font>
+				</label>
+		
+			</div>
+			
+			<div class="layui-form-item" style="min-height: 80px;">
+				<label style="font-weight: bold;padding-left: 15px;">病情资料 </label>
+				<div class="imgCont">
+					<div class="images" v-if="record.imgUrl1 != ''">
+						<img :src="record.imgUrl1" @click="imgBig" class="displayImg"/>
+					</div>
+					<div class="images" v-if="record.imgUrl2 != ''">
+						<img :src="record.imgUrl2" @click="imgBig" class="displayImg"/>
+					</div>
+					<div class="images" v-if="record.imgUrl3 != ''">
+						<img :src="record.imgUrl3" @click="imgBig" class="displayImg"/>
+					</div>
+					<div class="images" v-if="record.imgUrl4 != ''">
+						<img :src="record.imgUrl4" @click="imgBig" class="displayImg"/>
+					</div>
+				</div>
+			</div>
+			
+			<div >
+			    <div class="layui-input-block btn">
+			      <button class="layui-btn" lay-filter="formDemo" @click="initRoom">发起问诊</button>
+			      <button type="reset" class="layui-btn layui-btn-danger" @click="closeOrder">结束问诊</button>
+			    </div>
+			</div>
+		</div>
+	</body>
+	<script>
+		layui.use('table', function(){
+		  var table = layui.table;
+			
+		});
+		var vm = new Vue({
+			el: '#container',
+			data() {
+				return {
+					record:''
+				}
+			},
+			mounted: function () {
+				this.initPages(layui.data('param').orderNo);
+			},
+			methods:{
+				closeOrder:function(){
+					var thta=this;
+					var data={
+						  orderNo: thta.record.orderNo,
+						  colseType:2
+					}
+					var loading = layer.load(2);
+					$.post({
+						url: url + "/online/consultation/colseConsultation",
+						data: JSON.stringify(data),
+						dataType: "json",
+						contentType: 'application/json;charset=UTF-8',
+						success: function (res) {
+							layer.close(loading);
+							if (res.retCode == 0) {
+								// that.record = res.data;
+								layer.msg("更新会诊完成成功.", {
+									time: 2000
+								});
+								layer.closeAll();
+							} else {
+								layer.msg(res.retMsg, {
+									time: 1000
+								});
+							}
+						}
+					});
+				},
+				initPages(orderNo){
+					var that = this;
+					var data={
+						  orderNo: orderNo
+					}
+					var loading = layer.load(2);
+					$.post({
+						url: url + "/online/patient/getOnlineOrder",
+						data: JSON.stringify(data),
+						dataType: "json",
+						contentType: 'application/json;charset=UTF-8',
+						success: function (res) {
+							layer.close(loading);
+							if (res.retCode == 0) {
+								that.record = res.data;
+							} else {
+								layer.msg(res.retMsg, {
+									time: 1000
+								});
+							}
+						}
+					});
+				},
+				imgBig:() =>{
+					$("body").on("click", ".displayImg", function (e) {
+					    layer.photos({
+							photos: {"data": [{"src": e.target.src}]},
+						});
+					})
+				},
+				initRoom:function(){
+					var that = this;
+					if(this.record.isOpenVideo==2){
+						layer.msg("在预约时段内科打开视频", {
+							time: 1000
+						});
+						return false;
+					}
+					var data={
+						  orderNo: this.record.orderNo
+					}
+					$.post({
+						url: url + "/online/video/getVideoSigatrue",
+						data: JSON.stringify(data),
+						dataType: "json",
+						contentType: 'application/json;charset=UTF-8',
+						success: function (res) {
+							if (res.retCode == 0) {
+								var obj={
+									orderNo:res.data.orderNo,
+									sdkAppID:res.data.sdkAppID,
+									docNo:res.data.docNo,
+									roomId:res.data.roomId,
+									docSig:res.data.docSig
+								}
+								layui.data('param', {key: 'videoOrder',value: obj});
+								
+								var videoIndex = layer.open({
+								    type:2,
+									shade:0,
+									maxmin:true,
+									moveOut:true,
+									offset:'auto',
+									resize:true,
+								    title: "["+that.record.userName+"]-["+that.record.jzh+"]",
+								    area: ['500px', '600px'],
+								    content: '../hybrid/html/index.html',
+									// content: 'videoDetail.html',
+								    zIndex: layer.zIndex, //重点1
+								    success: function(layero){
+								        layer.setTop(layero); //重点2
+										layui.data('param', {key: 'videoIndex',value: videoIndex});
+								    },
+									end:function(){
+										
+									}
+								});
+							} else {
+								layer.msg(res.retMsg, {
+									time: 1000
+								});
+							}
+						}
+					});	
+				},
+			},
+			filters: {
+			    formatDate(time) {
+			        return resolvingDate(time);
+			    },
+				getState(_state){
+					//0未支付,1已支付,2未就诊,3已就诊,4订单完成,-1取消
+					var str = '';
+					switch (_state){
+						case 1:
+							str = '待就诊';
+							break;
+						case 2:
+							str = '待就诊';
+							break;
+						case 3:
+							str = '就诊中';
+							break;	
+						case 4:
+							str = '已完成';
+							break;		
+						default:
+							break;
+					}
+					return str;
+				}
+				
+			}
+		})
+	</script>
+	
+	<style>
+		#container{
+			width: 97%;
+			margin-top: 20px;
+			/* text-align: center; */
+		}
+		.images{
+			width: 80px;
+			height: 60px;
+			margin-left: 20px;
+		}
+		img{
+			width: 100%;
+			height: 100%;
+		}
+		.imgCont{
+			display: flex;
+			/* margin-left: 144px; */
+		}
+		.btn{
+			padding-top: 20px;
+			text-align: left;
+			width: 90px;
+			margin: auto;
+		}
+		.layui-form-item{
+			border-bottom: 1px solid silver;
+			width: 80%;
+			margin: auto;
+			padding: 5px 0px;
+		}
+		.layui-form-label{
+			width:100%;
+			text-align:left;
+			font-weight: bold;
+		}
+		
+		.layui-form-label font{
+			font-weight: 400;
+		}
+	</style>
+</html>

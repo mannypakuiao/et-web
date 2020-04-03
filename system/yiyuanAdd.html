@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="医院管理平台" />
+    <meta name="keywords" content="医院管理平台" />
+    <title>修改医院</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" href="../js/assets/design/css/trumbowyg.css">
+    <script src="../dist/layui.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+    
+    <script src="../js/assets/trumbowyg.js"></script>
+    <script src="../js/assets/plugins/base64/trumbowyg.base64.js"></script>
+</head>
+
+<body>
+<div style="display: none" id="addHospital">
+	<div style="padding: 15px;" >
+		<div style="height: 10px;"></div>
+		<div class="layui-input-inline">
+			<label class="layui-form-label">名称：</label>
+			<div class="layui-input-block" style="width: 200px;">
+				<input type="text" name="hospitalName" id="hospitalName"  lay-verify=""   autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div style="height: 10px;"></div>
+		<div class="layui-input-inline" >
+			<label class="layui-form-label">地址：</label>
+			<div class="layui-input-block" style="width: 200px;">
+				<input type="text" name="address" id="address" lay-verify="" required placeholder="" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div style="height: 10px;"></div>
+		<div class="layui-input-inline">
+			<label class="layui-form-label">电话：</label>
+			<div class="layui-input-block" style="width: 200px;">
+				<input type="text" name="tel" id="tel" lay-verify="" required placeholder="" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+	</div>
+</div>		
+</body>
+</html>

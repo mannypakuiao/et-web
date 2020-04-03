@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="医院管理平台" />
+    <meta name="keywords" content="医院管理平台" />
+    <title>医生简介</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/body.css" />
+    <script src="../js/common.js"></script>
+	<script src="../js/http.js"></script>
+    <script src="../dist/layui.js"></script>
+    <script src="../js/jquery-2.2.3.js"></script>
+    <script src="js/yishengjianjie.js"></script>
+    <style type="text/css"></style>
+</head>
+
+<body>
+<div class="content-wrap">
+    <div class="tableTop layui-form" lay-filter="tableTop"></div>
+    <div class="layui-form-item" style="margin-bottom:60px;">
+        <div class="layui-input-inline">
+            <label class="layui-form-label">医生姓名</label>
+            <div class="layui-input-block" style="width: 170px;">
+                <input type="text" id="key"  lay-verify="" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+		<form class="layui-form" action="">
+			<div class="layui-input-inline" style="margin-left: 20px;">
+				<select name="dept" id="dept" lay-verify="" class="layui-input" lay-filter="dept">
+				</select>
+			</div>
+		</form>
+        <button style="position: absolute;top: 15px;right: 20%;" id="search" class="layui-btn" lay-submit lay-filter="tableTop">查找</button>
+        <button style="position: absolute;top: 15px;right: 5%;" id="add" class="layui-btn" lay-submit lay-filter="tableTop">添加</button>
+    </div>
+	<form class="layui-form" action="">
+		<table class="tableContent layui-table">
+			<thead>
+			<tr>
+				<th style="width:7%;">医生姓名</th>
+				<th style="width:12%;">医生职称</th>
+				<th style="width:8%;">医生电话</th>
+				<th style="width:5%;">所属科室</th>
+				<!--&lt;!&ndash;<th style="width:5%;">挂号费</th>-->
+				<!-- <th style="width:5%;">健康宣教中展示</th> -->
+				<th style="width:5%;">图文咨询</th>
+				<th style="width:5%;">视频咨询</th>
+				<th style="width:5%;">健康宣教</th>
+				<th style="width:5%;">远程会诊</th>
+				<th style="width:10%;">操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</form>
+    <div id="page" style="margin-left: 28%">
+    </div>
+</div>
+<script>
+</script>
+</body>
+
+</html>

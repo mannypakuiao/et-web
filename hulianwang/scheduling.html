@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="description" content="医院管理平台" />
+	<meta name="keywords" content="医院管理平台" />
+	<link rel="stylesheet" type="text/css" href="../dist/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="../css/body.css" />
+	<script src="../js/common.js"></script>
+	<script src="../dist/layui.js"></script>
+	<script src="../js/jquery-2.2.3.js"></script>
+	<script src="js/scheduling.js"></script>
+	<style>
+		
+	</style>
+</head>
+
+<body>
+<div id='summarys' class="content-wrap">
+
+	<div class="layui-form-item">
+		<div class="layui-input-inline"  style="width: 300px;">
+			<label class="layui-form-label" style="width: 75px" >请选择科室:</label>
+			<div id="productName"  class="layui-input-block">
+				<select name="dept" id="dept" lay-verify="" class="layui-input">
+				</select>
+			</div>
+		</div>
+		<div class="layui-input-inline"  style="width: 300px;">
+			<label class="layui-form-label" style="width: 75px" >请选择医生:</label>
+			<div id="productName"  class="layui-input-block">
+				<select name="doc" id="doc" lay-verify="" class="layui-input">
+				</select>
+			</div>
+		</div>
+		
+		<div class="layui-input-inline" style="width: 300px;">
+			<label class="layui-form-label" style="width: 75px" >线上会诊:</label>
+			<div id="productName"  class="layui-input-block">
+				<select name="hzType" id="hz_type" lay-verify="" class="layui-input">
+					<option value="1" selected>在线问诊</option>
+					<option value="2">在线会诊</option>
+				</select>
+			</div>
+		</div>
+		
+		<button style="position: absolute;top: 15px;right: 1%;" id="search" class="layui-btn" lay-submit lay-filter="tableTop">查找</button>
+
+	</div>
+
+	<table class="tableContent layui-table">
+		<tr>
+			<th style="width:12%;">日期</th>
+			<th style="width:12%;">上下午</th>
+			<th style="width:12%;">发布号源总数</th>
+			<th style="width:12%;">是否出诊</th>
+		</tr>
+
+		<tr style="background-color:white;">
+			<td id="date-1" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="num-1-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-1-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-1-1" type="hidden" value="" /></td>
+		</tr>
+
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="num-1-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-1-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-1-2" type="hidden" value="" /></td>
+		</tr>
+
+		<tr style="background-color:white;" >
+			<td id="date-2" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="num-2-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-2-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-2-1" type="hidden" value="" /></td>
+		</tr>
+
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="num-2-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-2-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-2-2" type="hidden" value="" /></td>
+		</tr>
+
+		<tr style="background-color:white;" >
+			<td id="date-3" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="num-3-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-3-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-3-1" type="hidden" value="" /></td>
+		</tr>
+
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="num-3-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-3-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-3-2" type="hidden" value="" /></td>
+		</tr>
+
+		<tr style="background-color:white;" >
+			<td id="date-4" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="num-4-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-4-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-4-1" type="hidden" value="" /></td>
+		</tr>
+
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="num-4-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-4-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-4-2" type="hidden" value="" /></td>
+		</tr>
+
+		<tr style="background-color:white;" >
+			<td id="date-5" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="num-5-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-5-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-5-1" type="hidden" value="" /></td>
+		</tr>
+
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="num-5-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-5-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-5-2" type="hidden" value="" /></td>
+		</tr>
+
+
+		<tr style="background-color:white;" >
+			<td id="date-6" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="num-6-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-6-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"> <input id="id-6-1" type="hidden" value="" /></td>
+		</tr>
+
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="num-6-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-6-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-6-2" type="hidden" value="" /></td>
+		</tr>
+
+		<tr style="background-color:white;" >
+			<td id="date-7" rowspan=2></td>
+			<td>上午</td>
+			<td><input type="text" class="layui-input" id="num-7-1" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-7-1" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-7-1" type="hidden" value="" /></td>
+		</tr>
+
+		<tr style="background-color:white;">
+			<td>下午</td>
+			<td><input type="text" class="layui-input" id="num-7-2" placeholder="" style="width:200px;text-align:center;margin-left:5px;margin-right:5px;border-width: 0;"></td>
+			<td><select class="layui-input" id="chu-7-2" style="width:200px;text-align:center;text-align-last:center;margin-left:5px;margin-right:5px;border-width:0;font-size:16px;"><option></option><option value="0">不出诊</option><option value="1">出诊</option></select></td>
+			<td hidden="hidden"><input id="id-7-2" type="hidden" value="" /></td>
+		</tr>
+
+	</table>
+
+
+
+</div>
+
+
+
+
+<script>
+
+
+</script>
+
+
+
+</body>
+
+</html>
